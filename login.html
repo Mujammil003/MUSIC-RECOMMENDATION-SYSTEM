@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- <link rel="stylesheet" href="/static/app.css"> -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+    <style>
+        .button {
+            margin-top: 20px;
+            padding: 10px 0;
+            width: 100%;
+            border: none;
+            background-color: #ffd500;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #ffbf00;
+        }
+
+        /* .button:active {
+            transform: scale(0.98);
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>MoodBeats</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="/" class="link active">Home</a></li>
+                    <li><a href="/about" class="link">About Us</a></li>
+                    <li><a href="/feedback" class="link">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="nav-button">
+                <button class="btn" id="registerBtn"><a href="/login">Login</a></button>
+            </div>
+        </nav>
+    </div>
+    <section class="home">
+        <div class="form_container">
+            <i class="uil uil-times form_close"></i>
+
+            <!-- Login Form -->
+            <div class="form login_form">
+                <form action="/login" method="POST">
+                    <h2>Login</h2>
+                    <div class="input_box">
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <i class="uil uil-envelope-alt email"></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="password" placeholder="Enter your password" required>
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                    </div>
+                    <button type="submit" class="button">Login</button>
+                    <div class="login_signup">Don't have an account? <a href="/signup">Signup</a></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const formOpenBtn = document.getElementById('form-open');
+        const home = document.querySelector('.home');
+        const formContainer = document.querySelector('.form_container');
+        const formCloseBtn = document.querySelector('.form_close');
+        const signupBtn = document.getElementById('signup');
+        const loginBtn = document.getElementById('login');
+        const loginForm = document.querySelector('.login_form');
+        const signupForm = document.querySelector('.signup_form');
+
+        formOpenBtn.addEventListener('click', () => formContainer.classList.add('active'));
+        formCloseBtn.addEventListener('click', () => formContainer.classList.remove('active'));
+
+        signupBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+        });
+
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'block';
+        });
+    });
+
+</script>
+
+</html>

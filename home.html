@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodBeats: Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>MoodBeats</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="/" class="link active">Home</a></li>
+                    <li><a href="/about" class="link">About Us</a></li>
+                    <li><a href="/feedback" class="link">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="nav-button">
+                <button class="btn" id="registerBtn"><a href="/login">Login</a></button>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="image-container">
+                <img src="/static/women_mus.png" alt="Centered Image">
+            </div>
+            <div class="text-container">
+                <p class="welcome-text">Welcome to MoodBeats!!</p>
+                <p class="sub-text">Tune in, turn up, and let the music take you away</p>
+                <button class="btn try-me-btn" onclick="redirectToIndex()">Try Me</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function redirectToIndex() {
+            window.location.href = "/index";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+        }
+
+        .home {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            margin-top: 50px;
+            /* Adjust this value to move the form lower */
+        }
+
+        .form_container {
+            max-width: 320px;
+            width: 100%;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            /* Changed to white */
+        }
+
+        .nav {
+            width: 100%;
+            height: 70px;
+            /* Increase the height of the navbar */
+            background: rgb(255, 221, 0);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+
+        .nav-logo {
+            color: rgb(10, 6, 6);
+            font-size: 25px;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 2;
+        }
+
+        .nav-menu ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu ul li {
+            margin-left: 25px;
+        }
+
+        .nav-menu ul li:first-child {
+            margin-left: 0;
+        }
+
+        .nav-menu ul li .link {
+            text-decoration: none;
+            font-weight: 500;
+            color: #0e0b0b;
+        }
+
+        .nav-menu ul li .link:hover,
+        .nav-menu ul li .link.active {
+            border-bottom: 2px solid #000000;
+        }
+
+        .nav-button {
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .nav-button .btn {
+            width: 130px;
+            height: 40px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.4);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: .3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-button .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-button .btn a {
+            text-decoration: none;
+            color: #0e0b0b;
+            display: block;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .input_box {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .input_box input {
+            height: 40px;
+            width: calc(100% - 40px);
+            border: none;
+            outline: none;
+            padding: 0 20px;
+            border-bottom: 1px solid black;
+        }
+
+        .input_box i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            color: #707070;
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px 0;
+            width: 100%;
+            border: none;
+            background-color: #ffd500;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #ffbf00;
+        }
+
+        .signup_login {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .signup_login a {
+            color: #7d2ae8;
+            text-decoration: none;
+        }
+
+        .signup_login a:hover {
+            text-decoration: underline;
+        }
+
+        .form_close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #0b0217;
+            font-size: 22px;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #0b0217;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <div class="nav-logo">MoodBeats</div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="/" class="link active">Home</a></li>
+                <li><a href="/about" class="link">About Us</a></li>
+                <li><a href="/feedback" class="link">Feedback</a></li>
+            </ul>
+        </div>
+        <div class="nav-button">
+            <button class="btn"><a href="/login">Login</a></button>
+        </div>
+    </nav>
+    <div class="home">
+        <div class="form_container">
+            <i class="uil uil-times form_close"></i>
+
+            <!-- Signup Form -->
+            <div class="form signup_form">
+                <form action="/signup" method="POST">
+                    <h2>Signup</h2>
+                    <div class="input_box">
+                        <input type="text" name="name" placeholder="Enter your name" required>
+                        <i class="uil uil-user"></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <i class="uil uil-envelope-alt email"></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="password" placeholder="Create a password" required>
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                    </div>
+                    <button type="submit" class="button">Signup</button>
+                    <div class="signup_login">Already have an account? <a href="/login">Login</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

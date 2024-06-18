@@ -1,0 +1,390 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #video-container {
+            margin-bottom: 20px;
+        }
+
+        #video {
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>MoodBeats</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#" class="link active">Home</a></li>
+                    <li><a href="#" class="link">About Us</a></li>
+                    <li><a href="#" class="link">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="nav-button">
+                <button class="btn" id="registerBtn">Contact Us</button>
+            </div>
+            <div class="container">
+                <div id="video-container">
+                    <video id="video" autoplay playsinline></video>
+                </div>
+                <button id="capture-btn">Capture Emotion</button>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const captureBtn = document.getElementById('capture-btn');
+
+        // Get media stream from webcam
+        async function getMediaStream() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        }
+
+        // Capture emotion when button is clicked
+        captureBtn.addEventListener('click', async () => {
+            const imageData = await captureImage();
+            if (imageData) {
+                detectEmotion(imageData);
+            }
+        });
+
+        // Detect emotion using Python script
+        async function detectEmotion(imageData) {
+            try {
+                const response = await fetch('/detect_emotion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image_data: imageData }),
+                });
+                const data = await response.json();
+                if (data.emotion) {
+                    alert('Detected Emotion: ' + data.emotion);
+                    // Write detected emotion to a text file
+                    const detectedMood = data.emotion;
+                    const blob = new Blob([detectedMood], { type: 'text/plain' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    // Set the file name based on the detected mood
+                    a.download = 'detected_mood.txt';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                } else {
+                    alert('Emotion not detected.');
+                }
+            } catch (error) {
+                console.error('Error detecting emotion:', error);
+                alert('Error detecting emotion. Please try again.');
+            }
+        }
+
+
+
+        // Capture image from video stream
+        async function captureImage() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // Convert image data to base64
+            const imageData = canvas.toDataURL('image/jpeg');
+            return imageData;
+        }
+
+
+
+        // Detect emotion using Python script
+        async function detectEmotion(imageData) {
+            try {
+                const response = await fetch('/detect_emotion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image_data: imageData }),
+                });
+                const data = await response.json();
+                if (data.emotion) {
+                    alert('Detected Emotion: ' + data.emotion);
+                } else {
+                    alert('Emotion not detected.');
+                }
+            } catch (error) {
+                console.error('Error detecting emotion:', error);
+                alert('Error detecting emotion. Please try again.');
+            }
+        }
+
+        // Start media stream when page loads
+        window.addEventListener('load', () => {
+            getMediaStream();
+        });
+    </script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+        }
+
+        #video-container {
+            margin-bottom: 20px;
+        }
+
+        #video {
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .wrapper {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #ff0;
+            color: #000;
+        }
+
+        .nav-logo p {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-menu ul li {
+            display: inline;
+        }
+
+        .nav-menu ul li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .nav-menu ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .nav-menu ul li a.active {
+            font-weight: bold;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-button .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-button .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <p>MoodBeats</p>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#" class="link active">Home</a></li>
+                    <li><a href="#" class="link">About Us</a></li>
+                    <li><a href="#" class="link">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="nav-button">
+                <button class="btn" id="registerBtn">Contact Us</button>
+            </div>
+        </nav>
+        <div class="container">
+            <div id="video-container">
+                <video id="video" autoplay playsinline></video>
+            </div>
+            <button id="capture-btn">Capture Emotion</button>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const captureBtn = document.getElementById('capture-btn');
+
+        // Get media stream from webcam
+        async function getMediaStream() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        }
+
+        // Capture emotion when button is clicked
+        captureBtn.addEventListener('click', async () => {
+            const imageData = await captureImage();
+            if (imageData) {
+                detectEmotion(imageData);
+            }
+        });
+
+        // Capture image from video stream
+        async function captureImage() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // Convert image data to base64
+            const imageData = canvas.toDataURL('image/jpeg');
+            return imageData;
+        }
+
+        // Detect emotion using Python script
+        async function detectEmotion(imageData) {
+            try {
+                const response = await fetch('/detect_emotion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ image_data: imageData }),
+                });
+                const data = await response.json();
+                if (data.emotion) {
+                    alert('Detected Emotion: ' + data.emotion);
+                    // Write detected emotion to a text file
+                    const detectedMood = data.emotion;
+                    const blob = new Blob([detectedMood], { type: 'text/plain' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    // Set the file name based on the detected mood
+                    a.download = 'detected_mood.txt';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                } else {
+                    alert('Emotion not detected.');
+                }
+            } catch (error) {
+                console.error('Error detecting emotion:', error);
+                alert('Error detecting emotion. Please try again.');
+            }
+        }
+
+        // Start media stream when page loads
+        window.addEventListener('load', () => {
+            getMediaStream();
+        });
+    </script>
+</body>
+
+</html>
